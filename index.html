@@ -56,7 +56,8 @@
   .track__cover { width:100%; aspect-ratio:1/1; border-radius:2px; object-fit:cover; display:block; margin-bottom:12px; background:var(--bg2); pointer-events: none; flex-shrink: 0; filter: grayscale(0.3) contrast(1.1);}
   
   .track__num { font-size:11px; color:var(--accent); font-weight:800; letter-spacing:.1em; margin-bottom:6px; }
-  .track__name { font-size:15px; font-weight:800; margin-bottom:4px; line-height: 1.2; color: #fff; }
+  .track__name { font-size:15px; font-weight:800; margin-bottom:2px; line-height: 1.2; color: #fff; }
+  .track__artist { font-size:12px; color:var(--accent); font-weight:600; margin-bottom:4px; text-transform: uppercase; letter-spacing: 1px;}
   .track__desc { font-size:12px; color:var(--muted); line-height: 1.4; flex-grow: 1; font-style: italic; }
 
   .player { width:100%; max-width:600px; background:var(--card); border-radius:8px; padding:20px; display:flex; flex-direction:column; gap:16px; box-shadow:0 15px 50px rgba(0,0,0,.8); border:1px solid rgba(192,192,192,.15); position: sticky; bottom: 10px; z-index: 10;}
@@ -64,7 +65,7 @@
   .player__cover { width:70px; height:70px; border-radius:4px; object-fit:cover; background:var(--bg2); border:1px solid var(--accent); pointer-events: none; }
   .player__info { overflow:hidden; flex:1; }
   .player__title { font-weight:800; font-size:16px; line-height:1.25; margin-bottom:2px; color: #fff;}
-  .player__artist { color:var(--muted); font-size:13px; }
+  .player__artist { color:var(--accent); font-size:13px; font-weight:600; text-transform: uppercase; letter-spacing: 1px;}
   .player audio { width:100%; outline: none; filter: sepia(0.2);}
   
   .player__nav { display:flex; justify-content:center; gap:16px; }
@@ -73,46 +74,7 @@
 </style>
 </head>
 <body>
-<!-- Кнопка возврата на главную -->
-<a href="https://warmlight-music.github.io/my-music/" class="back-to-main">
-    ← Вернуться  
-</a>
 
-<style>
-    .back-to-main {
-        position: fixed;
-        top: 20px; /* Опустили кнопку вниз, чтобы не мешать переключателю языка */
-        left: 20px;
-        background-color: #1a1512; /* Темный фон, как на скриншоте */
-        color: #d4af37;
-        padding: 10px 20px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-family: 'Georgia', serif;
-        font-size: 14px;
-        border: 1px solid #4a3b2f;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        transition: all 0.3s ease;
-        z-index: 9999;
-    }
-
-    .back-to-main:hover {
-        background-color: #d4af37;
-        color: #1a1512;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-    }
-    
-    /* Для мобильных телефонов можно сделать ее чуть меньше */
-    @media (max-width: 768px) {
-        .back-to-main {
-            top: 20px; /* На телефоне шапка может быть чуть меньше */
-            left: 10px;
-            padding: 8px 15px;
-            font-size: 12px;
-        }
-    }
-</style>
   <div class="lang" role="group" aria-label="Language">
     <button id="btnRu">RU</button>
     <button id="btnEn" class="active">EN</button>
@@ -147,14 +109,14 @@
     titleRu: "Серебряные страницы 2026",
     cover: "cover.jpg",
     tracks: [
-      { id: 1, en: "Riding on the Thunder", ru: "Мы летим сквозь грозы" },
-      { id: 2, en: "Rolling Down the Midnight Road", ru: "Рок-н-ролл на полную катушку" },
-      { id: 3, en: "Across the Garden Fence", ru: "В окнах напротив" },
-      { id: 4, en: "We’re Falling In", ru: "Мы влюблены" },
-      { id: 5, en: "Mirage on the Desert Highway", ru: "Огни ночного шоссе" },
-      { id: 6, en: "Wings of the Autumn Wind", ru: "Я всё ещё жду тебя" },
-      { id: 7, en: "Crown of the Silver Stage", ru: "Занавес не опустится" },
-      { id: 8, en: "Weeping Guitar Story", ru: "Плачущая гитара" }
+      { id: 1, artist: "Deep Purple", en: "Riding on the Thunder", ru: "Мы летим сквозь грозы" },
+      { id: 2, artist: "Status Quo", en: "Rolling Down the Midnight Road", ru: "Рок-н-ролл на полную катушку" },
+      { id: 3, artist: "Smokie", en: "Across the Garden Fence", ru: "В окнах напротив" },
+      { id: 4, artist: "Chris Norman & Suzi Quatro", en: "We’re Falling In", ru: "Мы влюблены" },
+      { id: 5, artist: "Eagles", en: "Mirage on the Desert Highway", ru: "Огни ночного шоссе" },
+      { id: 6, artist: "Scorpions", en: "Wings of the Autumn Wind", ru: "Я всё ещё жду тебя" },
+      { id: 7, artist: "Queen", en: "Crown of the Silver Stage", ru: "Занавес не опустится" },
+      { id: 8, artist: "David Gilmour (Pink Floyd)", en: "Weeping Guitar Story", ru: "Плачущая гитара" }
     ]
   };
 
@@ -188,6 +150,8 @@
         <img class="track__cover" src="${coverPath(t.id)}" alt="${trackName(t)}">
         <div class="track__num">TRACK #${t.id}</div>
         <div class="track__name">${trackName(t)}</div>
+        <div class="track__artist">${t.artist}</div>
+        <div class="track__desc">...</div>
       `;
       el.addEventListener('click', () => play(i));
       carousel.appendChild(el);
@@ -208,7 +172,7 @@
 
     playerCover.src = coverPath(t.id);
     playerTitle.textContent = trackName(t);
-    playerArtist.textContent = "Silver Pages";
+    playerArtist.textContent = t.artist;
 
     [...carousel.querySelectorAll('.track')].forEach((el, idx) => el.classList.toggle('active', idx === i));
     carousel.children[i]?.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
@@ -240,6 +204,7 @@
       
       playerCover.src = coverPath(t.id);
       playerTitle.textContent = trackName(t);
+      playerArtist.textContent = t.artist;
       
       audio.src = songPath(t.id);
       audio.currentTime = time; 
@@ -249,6 +214,7 @@
       }
     } else {
       playerTitle.textContent = lang === 'en' ? 'Pick a track' : 'Выбери трек';
+      playerArtist.textContent = "Silver Pages";
     }
   }
 
