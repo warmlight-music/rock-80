@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Echoes of the Silver Stage</title>
+<title>Silver Pages 2026</title>
 <style>
   :root{
     --bg:#0c0a09; 
@@ -81,8 +81,8 @@
 
   <section class="album">
     <img class="album__cover" id="albumCover" src="cover.jpg" alt="Album Cover">
-    <h1 class="album__title" id="albumTitle">Silver pages 2026</h1>
-    <p class="album__sub" id="albumSub">Серебрянные страницы 2026</p>
+    <h1 class="album__title" id="albumTitle">Silver Pages 2026</h1>
+    <p class="album__sub" id="albumSub">Серебряные страницы 2026</p>
   </section>
 
   <div class="carousel" id="carousel"></div>
@@ -92,7 +92,7 @@
       <img class="player__cover" id="playerCover" src="cover.jpg" alt="Cover">
       <div class="player__info">
         <div class="player__title" id="playerTitle">Pick a track</div>
-        <div class="player__artist" id="playerArtist">Silver Stage</div>
+        <div class="player__artist" id="playerArtist">Silver Pages</div>
       </div>
     </div>
     <audio id="audio" controls controlslist="nodownload" preload="none"></audio>
@@ -104,8 +104,8 @@
 
 <script>
   const album = {
-    titleEn: "Echoes of the Silver Stage",
-    titleRu: "Эхо серебряной сцены",
+    titleEn: "Silver Pages 2026",
+    titleRu: "Серебряные страницы 2026",
     cover: "cover.jpg",
     tracks: [
       { id: 1, en: "Riding on the Thunder", ru: "Мы летим сквозь грозы" },
@@ -169,7 +169,7 @@
 
     playerCover.src = coverPath(t.id);
     playerTitle.textContent = trackName(t);
-    playerArtist.textContent = "Silver Stage";
+    playerArtist.textContent = "Silver Pages";
 
     [...carousel.querySelectorAll('.track')].forEach((el, idx) => el.classList.toggle('active', idx === i));
     carousel.children[i]?.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
@@ -196,15 +196,12 @@
     document.getElementById('prevBtn').textContent = lang === 'en' ? '⏮ Prev' : '⏮ Пред';
     document.getElementById('nextBtn').textContent = lang === 'en' ? 'Next ⏭' : 'След ⏭';
 
-    // Берем ИМЕННО ТОТ трек, который играл, и обновляем ему язык
     if (currentTrack >= 0){
       const t = album.tracks[currentTrack];
       
-      // Обновляем картинку и текст строго по текущему индексу (currentTrack)
       playerCover.src = coverPath(t.id);
       playerTitle.textContent = trackName(t);
       
-      // Обновляем музыку (подставляем новый язык)
       audio.src = songPath(t.id);
       audio.currentTime = time; 
       
@@ -221,6 +218,16 @@
 
   document.getElementById('prevBtn').onclick = () => play(currentTrack - 1);
   document.getElementById('nextBtn').onclick = () => play(currentTrack + 1);
+  audio.addEventListener('ended', () => play(currentTrack + 1));
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+
+  updateAlbumHeader();
+  renderCarousel();
+</script>
+</body>
+</html>ment.getElementById('nextBtn').onclick = () => play(currentTrack + 1);
   audio.addEventListener('ended', () => play(currentTrack + 1));
 
   document.addEventListener('contextmenu', e => e.preventDefault());
